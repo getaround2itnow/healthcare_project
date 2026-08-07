@@ -416,7 +416,7 @@ pie_chart = (
     )
 )
 
-st.altair_chart(pie_chart, use_container_width=True)
+st.altair_chart(pie_chart, width="stretch")
 
 st.caption(
     "Percentage of total nursing hours worked by employees versus contractors."
