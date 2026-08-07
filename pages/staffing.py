@@ -137,11 +137,11 @@ st.write("Selected state:", selected_state)
 st.write("Selected ownership:", selected_owner)
 st.write("Selected provider:", selected_provider)
 
-st.write("5. Starting metrics calculation")
+# st.write("5. Starting metrics calculation")
 
-st.write(
-    "5a. Filtered provider records:",
-    len(filtered_provider_df)
+# st.write(
+#     "5a. Filtered provider records:",
+#     len(filtered_provider_df)
 )
 
 # st.write(
