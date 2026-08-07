@@ -111,6 +111,10 @@ st.write(
     "4. Facility staffing calculation completed:",
     len(facility_staffing)
 )
+st.write("Selected state:", selected_state)
+st.write("Selected ownership:", selected_owner)
+st.write("Selected provider:", selected_provider)
+
 st.write("5. Starting metrics calculation")
 
 # subset of facility_analysis currently selected by the dashboard user
