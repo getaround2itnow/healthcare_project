@@ -3,16 +3,15 @@ import pyarrow.fs as fs
 import streamlit as st
 import pandas as pd
 
+# Create single S3 filesystem connection using Streamlit secrets
+s3 = fs.S3FileSystem(
+    access_key=st.secrets["AWS_ACCESS_KEY_ID"],
+    secret_key=st.secrets["AWS_SECRET_ACCESS_KEY"],
+    region=st.secrets.get("AWS_DEFAULT_REGION", "us-east-1")
+)
+
 @st.cache_data
 def load_provider_data():
-    # 1. Create S3 filesystem passing credentials directly from st.secrets
-    s3 = fs.S3FileSystem(
-        access_key=st.secrets["AWS_ACCESS_KEY_ID"],
-        secret_key=st.secrets["AWS_SECRET_ACCESS_KEY"],
-        region=st.secrets.get("AWS_DEFAULT_REGION", "us-east-1")
-    )
-    
-    # 2. Pass bucket and folder path without 's3://' scheme
     dataset = ds.dataset(
         "hc-glue-bucket-curated/provider_info/",
         format="parquet",
@@ -20,45 +19,37 @@ def load_provider_data():
     )
     return dataset.to_table().to_pandas()
 
-# read data from S3 curated bucket
-@st.cache_data
-def load_provider_data():
-    dataset = ds.dataset(
-        "s3://hc-glue-bucket-curated/provider_info/",
-        format = "parquet"
-    )
-    return dataset.to_table().to_pandas()
-
 @st.cache_data
 def load_quality_data():
     dataset = ds.dataset(
-        "s3://hc-glue-bucket-curated/quality/",
-        format="parquet"
+        "hc-glue-bucket-curated/quality/",
+        format="parquet",
+        filesystem=s3
     )
     return dataset.to_table().to_pandas()
 
 @st.cache_data
 def load_pbj_data():
     dataset = ds.dataset(
-        "s3://hc-glue-bucket-curated/pbj/",
-        format="parquet"
+        "hc-glue-bucket-curated/pbj/",
+        format="parquet",
+        filesystem=s3
     )
     return dataset.to_table().to_pandas()
 
 @st.cache_data
 def load_state_averages_data():
     dataset = ds.dataset(
-        "s3://hc-glue-bucket-curated/state_averages/",
-        format="parquet"
+        "hc-glue-bucket-curated/state_averages/",
+        format="parquet",
+        filesystem=s3
     )
     return dataset.to_table().to_pandas()
 
+# Call functions to load DataFrames
 provider_df = load_provider_data()
-
 quality_df = load_quality_data()
-
 pbj_df = load_pbj_data()
-
 state_df = load_state_averages_data()
 
 st.sidebar.header("Filters")
