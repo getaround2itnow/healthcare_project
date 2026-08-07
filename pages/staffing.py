@@ -118,7 +118,6 @@ st.write(
     "DEBUG - PBJ records:",
     len(filtered_pbj_df)
 )
-st.stop()
 
 st.write("3. PBJ filtering completed:", len(filtered_pbj_df))
 
@@ -418,7 +417,7 @@ state_staffing = (
 )
 st.subheader("Average Nurse Hours per Resident by State")
 
-st.write("9. Starting monthly calculations")
+st.write("10a. Starting state staffing chart")
 
 st.bar_chart(state_staffing)
 
