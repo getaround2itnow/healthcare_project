@@ -121,28 +121,28 @@ st.write(
 
 st.write("3. PBJ filtering completed:", len(filtered_pbj_df))
 
-# facility_staffing = (
-#     filtered_pbj_df
-#     .groupby(
-#         ["cms_certification_number_ccn", "provider_name"]
-#     )["Total_Nurse_Hrs"]
-#     .mean()
-#     .reset_index(name="avg_total_nurse_hrs")
-# )
-# st.write(
-#     "4. Facility staffing calculation completed:",
-#     len(facility_staffing)
-# )
-# st.write("Selected state:", selected_state)
-# st.write("Selected ownership:", selected_owner)
-# st.write("Selected provider:", selected_provider)
+facility_staffing = (
+    filtered_pbj_df
+    .groupby(
+        ["cms_certification_number_ccn", "provider_name"]
+    )["Total_Nurse_Hrs"]
+    .mean()
+    .reset_index(name="avg_total_nurse_hrs")
+)
+st.write(
+    "4. Facility staffing calculation completed:",
+    len(facility_staffing)
+)
+st.write("Selected state:", selected_state)
+st.write("Selected ownership:", selected_owner)
+st.write("Selected provider:", selected_provider)
 
-# st.write("5. Starting metrics calculation")
+st.write("5. Starting metrics calculation")
 
-# st.write(
-#     "5a. Filtered provider records:",
-#     len(filtered_provider_df)
-# )
+st.write(
+    "5a. Filtered provider records:",
+    len(filtered_provider_df)
+)
 
 # st.write(
 #     "5b. Filtered PBJ records:",
