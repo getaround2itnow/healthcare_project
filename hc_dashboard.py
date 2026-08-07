@@ -1,6 +1,7 @@
 import pyarrow.dataset as ds
 import pyarrow.fs as fs
 import streamlit as st
+import pandas as pd
 
 @st.cache_data
 def load_provider_data():
