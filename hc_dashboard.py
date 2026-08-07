@@ -7,8 +7,18 @@ import pandas as pd
 s3 = fs.S3FileSystem(
     access_key=st.secrets["AWS_ACCESS_KEY_ID"],
     secret_key=st.secrets["AWS_SECRET_ACCESS_KEY"],
-    region=st.secrets.get("AWS_DEFAULT_REGION", "us-east-1")
+    region=st.secrets.get("AWS_DEFAULT_REGION")
 )
+
+st.write("Testing S3 connection...")
+
+try:
+    info = s3.get_file_info(
+        "hc-glue-bucket-curated/provider_info/"
+    )
+    st.write(info)
+except Exception as e:
+    st.error(f"S3 connection failed: {e}")
 
 # 2. Define dataset functions using filesystem=s3
 @st.cache_data
