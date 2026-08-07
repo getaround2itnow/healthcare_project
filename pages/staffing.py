@@ -139,19 +139,23 @@ filtered_facility_analysis["nurse_hours_per_resident"] = (
     filtered_facility_analysis["avg_total_nurse_hrs"]
     / filtered_facility_analysis["average_residents_per_day"]
 )
-
+st.write("Starting metrics calculation")
 total_providers = filtered_provider_df["provider_name"].nunique()
-
+st.write("5. Provider count calculated")
 avg_nurse_hours = (
     filtered_facility_analysis["avg_total_nurse_hrs"].mean()
 )
+st.write("6. Average nurse hours calculated")
+
 avg_nurse_hours_per_resident = (
     filtered_facility_analysis["nurse_hours_per_resident"].mean()
 )
+st.write("6a. Average nurse hours per resident calculated")
 
 avg_occupancy = (
     filtered_facility_analysis["occupancy_rate"].mean()
 )
+st.write("7. Average occupancy calculated")
 
 avg_nurse_hours = 0 if pd.isna(avg_nurse_hours) else avg_nurse_hours
 avg_nurse_hours_per_resident = (
@@ -160,8 +164,12 @@ avg_nurse_hours_per_resident = (
 )
 avg_occupancy = 0 if pd.isna(avg_occupancy) else avg_occupancy
 
+st.write("7a. NaN handling completed")
+
 total_employee_hrs = filtered_pbj_df["employee_hrs"].sum()
 total_contractor_hrs = filtered_pbj_df["contractor_hrs"].sum()
+
+st.write("8. Employee and contractor hours summed")
 
 # Contractor percentage
 if total_employee_hrs == 0 and total_contractor_hrs == 0:
@@ -191,6 +199,7 @@ employee_contractor_ratio_display = (
     if employee_contractor_ratio is None
     else f"{employee_contractor_ratio:.2f}:1"
 )
+st.write("9. Employee/contractor calculations completed")
 total_nursing_hrs = (
     total_employee_hrs + total_contractor_hrs
 )
@@ -361,39 +370,39 @@ st.write("9. Starting monthly calculations")
 
 st.bar_chart(state_staffing)
 
-pbj_df["WorkDate"] = pd.to_datetime(
-    pbj_df["WorkDate"].astype(str)
-)
-pbj_df["month"] = (
-    pbj_df["WorkDate"]
-    .dt.to_period("M")
-    .astype(str)
-)
+# pbj_df["WorkDate"] = pd.to_datetime(
+#     pbj_df["WorkDate"].astype(str)
+# )
+# pbj_df["month"] = (
+#     pbj_df["WorkDate"]
+#     .dt.to_period("M")
+#     .astype(str)
+# )
 
-monthly_nurse_hours = (
-    pbj_df
-    .groupby(
-        [
-            "cms_certification_number_ccn",
-            "provider_name",
-            "state",
-            "month"
-        ]
-    )["Total_Nurse_Hrs"]
-    .sum()
-    .reset_index()
-)
-monthly_totals = (
-    monthly_nurse_hours
-    .groupby("month")["Total_Nurse_Hrs"]
-    .sum()
-)
-st.subheader("Total Nurse Hours by Month")
+# monthly_nurse_hours = (
+#     pbj_df
+#     .groupby(
+#         [
+#             "cms_certification_number_ccn",
+#             "provider_name",
+#             "state",
+#             "month"
+#         ]
+#     )["Total_Nurse_Hrs"]
+#     .sum()
+#     .reset_index()
+# )
+# monthly_totals = (
+#     monthly_nurse_hours
+#     .groupby("month")["Total_Nurse_Hrs"]
+#     .sum()
+# )
+# st.subheader("Total Nurse Hours by Month")
 
-# st.write(monthly_nurse_hours)
-# st.write(monthly_totals)
+# # st.write(monthly_nurse_hours)
+# # st.write(monthly_totals)
 
-st.line_chart(monthly_totals)
+# st.line_chart(monthly_totals)
 
 # ---------------------------------------------------------
 # Employee vs. Contractor Nursing Hours
