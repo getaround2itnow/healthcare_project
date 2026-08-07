@@ -117,6 +117,18 @@ st.write("Selected provider:", selected_provider)
 
 st.write("5. Starting metrics calculation")
 
+st.write(
+    "5a. Filtered provider records:",
+    len(filtered_provider_df)
+)
+
+st.write(
+    "5b. Filtered PBJ records:",
+    len(filtered_pbj_df)
+)
+
+st.write("5c. Starting facility merge")
+
 # subset of facility_analysis currently selected by the dashboard user
 filtered_facility_analysis = (
     filtered_provider_df[
@@ -135,10 +147,22 @@ filtered_facility_analysis = (
         how="inner"
     )
 )
+st.write(
+    "5d. Facility merge completed:",
+    len(filtered_facility_analysis)
+
+st.write("5e. Starting nurse-hours-per-resident calculation")
+
 filtered_facility_analysis["nurse_hours_per_resident"] = (
     filtered_facility_analysis["avg_total_nurse_hrs"]
     / filtered_facility_analysis["average_residents_per_day"]
 )
+filtered_facility_analysis["nurse_hours_per_resident"] = (
+    filtered_facility_analysis["nurse_hours_per_resident"]
+    .replace([float("inf"), -float("inf")], pd.NA)
+)
+st.write("5f. Nurse-hours-per-resident calculation completed")
+
 st.write("Starting metrics calculation")
 total_providers = filtered_provider_df["provider_name"].nunique()
 st.write("5. Provider count calculated")
@@ -150,6 +174,7 @@ st.write("6. Average nurse hours calculated")
 avg_nurse_hours_per_resident = (
     filtered_facility_analysis["nurse_hours_per_resident"].mean()
 )
+
 st.write("6a. Average nurse hours per resident calculated")
 
 avg_occupancy = (
@@ -348,7 +373,7 @@ with st.expander("Provider Details", expanded=True):
 
 st.write("6. Metrics calculation completed")
 
-st.write("8. Charts completed")
+st.write("10". Starting charts")
 
 st.subheader(
     "Occupancy Rate vs. Nurse Hours per Resident"
@@ -369,6 +394,8 @@ st.subheader("Average Nurse Hours per Resident by State")
 st.write("9. Starting monthly calculations")
 
 st.bar_chart(state_staffing)
+
+st.write("11. State staffing chart completed")x
 
 # pbj_df["WorkDate"] = pd.to_datetime(
 #     pbj_df["WorkDate"].astype(str)
