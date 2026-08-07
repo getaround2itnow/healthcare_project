@@ -2,6 +2,8 @@ import pyarrow.dataset as ds
 import pyarrow.fs as fs
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
+import altair as alt
 
 # Create single S3 filesystem connection using Streamlit secrets
 s3 = fs.S3FileSystem(
@@ -75,7 +77,6 @@ if selected_owner != "All":
 provider_options = ['All'] + sorted(
     filtered_provider_df["provider_name"].dropna().unique().tolist()
 )
-
 selected_provider = st.sidebar.selectbox(
     "Provider",
     provider_options
@@ -145,9 +146,6 @@ avg_nurse_hours_per_resident = (
 )
 avg_occupancy = 0 if pd.isna(avg_occupancy) else avg_occupancy
 
-provider_options = ['All'] + sorted(
-    filtered_provider_df["provider_name"].dropna().unique().tolist()
-)
 total_employee_hrs = filtered_pbj_df["employee_hrs"].sum()
 total_contractor_hrs = filtered_pbj_df["contractor_hrs"].sum()
 
@@ -372,8 +370,8 @@ monthly_totals = (
 )
 st.subheader("Total Nurse Hours by Month")
 
-st.write(monthly_nurse_hours)
-st.write(monthly_totals)
+# st.write(monthly_nurse_hours)
+# st.write(monthly_totals)
 
 st.line_chart(monthly_totals)
 

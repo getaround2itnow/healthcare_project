@@ -17,25 +17,13 @@ def load_provider_data():
     return dataset.to_table().to_pandas()
 
 @st.cache_data
-def load_quality_data():
-    dataset = ds.dataset("hc-glue-bucket-curated/quality/", format="parquet", filesystem=s3)
-    return dataset.to_table().to_pandas()
-
-@st.cache_data
 def load_pbj_data():
     dataset = ds.dataset("hc-glue-bucket-curated/pbj/", format="parquet", filesystem=s3)
     return dataset.to_table().to_pandas()
 
-@st.cache_data
-def load_state_averages_data():
-    dataset = ds.dataset("hc-glue-bucket-curated/state_averages/", format="parquet", filesystem=s3)
-    return dataset.to_table().to_pandas()
-
 # 3. Load DataFrames
 provider_df = load_provider_data()
-quality_df = load_quality_data()
 pbj_df = load_pbj_data()
-state_df = load_state_averages_data()
 
 st.sidebar.header("Filters")
 
