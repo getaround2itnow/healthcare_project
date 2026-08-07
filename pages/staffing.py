@@ -111,6 +111,7 @@ st.write(
     "4. Facility staffing calculation completed:",
     len(facility_staffing)
 )
+st.write("5. Starting metrics calculation")
 
 # subset of facility_analysis currently selected by the dashboard user
 filtered_facility_analysis = (
@@ -201,7 +202,6 @@ staffing_mix = pd.DataFrame({
     "Staff Type": ["Employee", "Contractor"],
     "Hours": [total_employee_hrs, total_contractor_hrs]
 })
-
 
 # First row
 col1, col2, col3, col4 = st.columns(4)
@@ -333,6 +333,10 @@ with st.expander("Provider Details", expanded=True):
     else:
         st.info("No staffing data is available for the selected provider")
 
+st.write("6. Metrics calculation completed")
+
+st.write("8. Charts completed")
+
 st.subheader(
     "Occupancy Rate vs. Nurse Hours per Resident"
 )
@@ -348,6 +352,9 @@ state_staffing = (
     .sort_values(ascending=False)
 )
 st.subheader("Average Nurse Hours per Resident by State")
+
+st.write("9. Starting monthly calculations")
+
 st.bar_chart(state_staffing)
 
 pbj_df["WorkDate"] = pd.to_datetime(
