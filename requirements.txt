@@ -5,3 +5,4 @@ plotly
 altair
 matplotlib
 seaborn
+s3fs
