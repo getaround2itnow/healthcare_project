@@ -147,9 +147,11 @@ filtered_facility_analysis = (
         how="inner"
     )
 )
+
 st.write(
     "5d. Facility merge completed:",
     len(filtered_facility_analysis)
+)
 
 st.write("5e. Starting nurse-hours-per-resident calculation")
 
@@ -157,10 +159,12 @@ filtered_facility_analysis["nurse_hours_per_resident"] = (
     filtered_facility_analysis["avg_total_nurse_hrs"]
     / filtered_facility_analysis["average_residents_per_day"]
 )
+
 filtered_facility_analysis["nurse_hours_per_resident"] = (
     filtered_facility_analysis["nurse_hours_per_resident"]
     .replace([float("inf"), -float("inf")], pd.NA)
 )
+
 st.write("5f. Nurse-hours-per-resident calculation completed")
 
 st.write("Starting metrics calculation")
@@ -373,7 +377,7 @@ with st.expander("Provider Details", expanded=True):
 
 st.write("6. Metrics calculation completed")
 
-st.write("10". Starting charts")
+st.write("10. Starting charts")
 
 st.subheader(
     "Occupancy Rate vs. Nurse Hours per Resident"
@@ -395,7 +399,7 @@ st.write("9. Starting monthly calculations")
 
 st.bar_chart(state_staffing)
 
-st.write("11. State staffing chart completed")x
+st.write("11. State staffing chart completed")
 
 # pbj_df["WorkDate"] = pd.to_datetime(
 #     pbj_df["WorkDate"].astype(str)
