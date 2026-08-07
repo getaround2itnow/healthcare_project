@@ -34,6 +34,8 @@ def load_pbj_data():
 provider_df = load_provider_data()
 pbj_df = load_pbj_data()
 
+st.write("DEBUG: Data loaded successfully")
+
 st.title("Nurse Staffing Analysis")
 
 st.write(
@@ -97,6 +99,27 @@ st.write("2. CCNs identified:", len(filtered_ccns))
 filtered_pbj_df = pbj_df[
     pbj_df["cms_certification_number_ccn"].isin(filtered_ccns)
 ]
+st.write(
+    "3. PBJ filtering completed:",
+    len(filtered_pbj_df)
+)
+
+st.write(
+    "DEBUG - selected state:",
+    selected_state
+)
+
+st.write(
+    "DEBUG - CCNs:",
+    len(filtered_ccns)
+)
+
+st.write(
+    "DEBUG - PBJ records:",
+    len(filtered_pbj_df)
+)
+st.stop()
+
 st.write("3. PBJ filtering completed:", len(filtered_pbj_df))
 
 facility_staffing = (
