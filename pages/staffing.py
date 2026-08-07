@@ -86,14 +86,18 @@ if selected_provider != "All":
     filtered_provider_df = filtered_provider_df[
         filtered_provider_df["provider_name"] == selected_provider
     ]
+st.write("1. Staffing page started")
 
 filtered_ccns = filtered_provider_df[
     "cms_certification_number_ccn"
 ].unique()
 
+st.write("2. CCNs identified:", len(filtered_ccns))
+
 filtered_pbj_df = pbj_df[
     pbj_df["cms_certification_number_ccn"].isin(filtered_ccns)
 ]
+st.write("3. PBJ filtering completed:", len(filtered_pbj_df))
 
 facility_staffing = (
     filtered_pbj_df
@@ -103,6 +107,11 @@ facility_staffing = (
     .mean()
     .reset_index(name="avg_total_nurse_hrs")
 )
+st.write(
+    "4. Facility staffing calculation completed:",
+    len(facility_staffing)
+)
+
 # subset of facility_analysis currently selected by the dashboard user
 filtered_facility_analysis = (
     filtered_provider_df[
