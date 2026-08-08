@@ -248,6 +248,7 @@ else:
         f"{selected_owner} Providers in {state_names.get(selected_state, selected_state)}"
     )
 
+st.subheader("Occupancy Rate per Provider")   
 occupancy = (
     chart_df.groupby("provider_name") ["occupancy_rate"]
     .mean()
