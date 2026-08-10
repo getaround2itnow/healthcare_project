@@ -342,7 +342,7 @@ monthly_nurse_hours = (
     .reset_index()
 )
 
-# show a record count of 91 for each cms cert numb (ccn)cd
+# show a record count of 91 for each cms cert numb (ccn)
 pbj_quarters = (
     pbj_df
     .groupby(
